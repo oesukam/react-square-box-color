@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium';
 
 let styles = {
 	container: {
@@ -26,4 +27,4 @@ const box = (props) => {
 	);
 }
 
-export default box;
+export default Radium(box);

@@ -39,7 +39,6 @@ class App extends Component {
 		this.rects();
 	}
   render() {
-  	let boxNum = 10;
     return (
       <div>
       	<div style={Styles.inputContainer}>

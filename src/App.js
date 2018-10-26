@@ -18,25 +18,34 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			rects: [],
-			boxNum: 10
+			rects: colors,
+			boxNum: 8
 		};
-		this.rects = this.rects.bind(this)
-		this.inputHandler = this.inputHandler.bind(this)
+		this.rects = this.rects.bind(this);
+		this.inputHandler = this.inputHandler.bind(this);
+		this.deleteHandler = this.deleteHandler.bind(this);
 	}
 
 	rects() {
-		let rects = [];
-		for (let i = 0; i<this.state.boxNum; i++) {
-			rects.push(<ColorBox num={i+1} color={colors[i%colors.length]} key={i}/>)
-		}
-		return rects;
+		return this.state.rects.map((val, i) => (
+			<ColorBox
+				num={i+1}
+				color={val}
+				key={i}
+				onDelete={() => this.deleteHandler(i)}
+			/>
+		))
 	}
 
 	inputHandler(event) {
-
-		this.setState({ boxNum: event.target.value.replace(/\D+/g, '') });
-		this.rects();
+		const boxNum = parseInt(event.target.value.replace(/\D+/g, '') || 0);
+		const rects = new Array(boxNum).fill(1).map((v, i) => colors[i%colors.length])
+		this.setState({ boxNum, rects });
+	}
+	deleteHandler(index) {
+		const rects = [...this.state.rects];
+		rects.splice(index, 1);
+		this.setState({ rects, boxNum: rects.length });
 	}
   render() {
     return (
